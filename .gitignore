@@ -1,0 +1,19 @@
+# Node
+node_modules/
+.env
+dist/
+build/
+.vscode/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# OS
+.idea/
+*.swp
