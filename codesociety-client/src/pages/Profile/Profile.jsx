@@ -1,40 +1,41 @@
 import { useEffect, useState } from "react";
-import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Profile() {
   const [user, setUser] = useState(null);
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("/auth/profile");
+        const res = await axios.get("http://localhost:8000/auth/profile", {
+          withCredentials: true,
+        });
         setUser(res.data.user);
       } catch (err) {
-        setMessage("Unauthorized or session expired");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1500);
+        setError("Failed to fetch profile. Please login again.");
       }
     };
 
     fetchProfile();
-  }, [navigate]);
+  }, []);
 
   return (
-    <div style={{ paddingTop: "100px", textAlign: "center" }}>
-      <h2>Profile</h2>
-      {message && <p>{message}</p>}
-      {user && (
-        <div>
-          <p><strong>First Name:</strong> {user.firstname}</p>
-          <p><strong>Last Name:</strong> {user.lastname}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Role:</strong> {user.role}</p>
-        </div>
-      )}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="bg-white p-6 rounded shadow-md w-full max-w-md">
+        <h2 className="text-xl font-semibold mb-4">User Profile</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+
+        {user ? (
+          <div className="space-y-2">
+            <p><strong>Name:</strong> {user.firstname} {user.lastname}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Role:</strong> {user.role}</p>
+          </div>
+        ) : (
+          !error && <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 }

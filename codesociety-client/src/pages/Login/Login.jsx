@@ -1,13 +1,14 @@
 import { useState } from "react";
-import axios from "../../utils/axios";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -15,36 +16,80 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
+    setError("");
+
     try {
-      const res = await axios.post("/auth/login", formData);
-      setMessage(res.data.message || "Logged in Successfully!");
+      const res = await axios.post(
+        "http://localhost:8000/auth/login",
+        formData,
+        { withCredentials: true }
+      );
+
+      if (res.status === 200) {
+        login(res.data.user);
+        toast.success("Logged in successfully!");
+        navigate("/");
+      }
     } catch (err) {
-      setMessage(err.response?.data?.error || "Login failed");
+      const msg =
+        err.response?.data?.error ||
+        err.response?.data?.message ||
+        "Something went wrong";
+
+      setError(msg);
+      toast.error(msg);
     }
   };
 
   return (
-    <div style={{ paddingTop: "100px", textAlign: "center" }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        /><br />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        /><br />
-        <button type="submit">Login</button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="min-h-screen w-full flex flex-col md:flex-row">
+      <div className="flex-1 bg-blue-50 flex flex-col justify-center items-center p-8">
+        <h2 className="text-4xl font-bold text-blue-700 mb-4">Welcome Back!</h2>
+        <p className="text-gray-700 text-lg max-w-md text-center">
+          Ready to dive into problems, sharpen your skills, and join the CodeSociety?
+        </p>
+      </div>
+
+      <div className="flex-1 bg-white flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
+
+          {error && (
+            <p className="bg-red-100 text-red-600 p-2 rounded mb-4 text-sm text-center">
+              {error}
+            </p>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              required
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

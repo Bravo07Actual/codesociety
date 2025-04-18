@@ -1,12 +1,72 @@
-import styles from "./Home.module.css";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import Body from "../../components/Layout/Body.jsx";
 
 const Home = () => {
-    return (
-        <div className={styles.container}>
-            <h2>Welcome to CodeSociety Home</h2>
-            <p>This is the home page content!</p>
+  const { user } = useAuth();
+
+  return (
+    <Body>
+      <div className="min-h-[calc(100vh-160px)] flex flex-col items-center justify-center text-center">
+        {/* Heading */}
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          {user ? (
+            <>
+              Welcome back, <span className="text-blue-600">{user.firstname || "Coder"}</span>!
+            </>
+          ) : (
+            <>
+              Welcome to <span className="text-blue-600">CodeSociety</span>
+            </>
+          )}
+        </h1>
+
+        {/* Subtext */}
+        <p className="text-gray-600 text-lg md:text-xl mb-8 max-w-xl">
+          {user ? (
+            "Sharpen your skills, track your progress, and earn CodeAura as you solve problems."
+          ) : (
+            "Your platform to sharpen coding skills, compete, and master algorithms — inspired by the best."
+          )}
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-wrap gap-4 justify-center">
+          {user ? (
+            <>
+              <Link
+                to="/problems"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                Explore Problems
+              </Link>
+              <Link
+                to="/profile"
+                className="border border-blue-600 text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                Go to Profile
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                Get Started
+              </Link>
+              <Link
+                to="/leaderboard"
+                className="border border-blue-600 text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                See Leaderboard
+              </Link>
+            </>
+          )}
         </div>
-    );
+      </div>
+    </Body>
+  );
 };
 
 export default Home;
