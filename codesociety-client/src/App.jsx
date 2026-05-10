@@ -4,15 +4,16 @@ import Footer from "./components/Footer/Footer.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Register from "./pages/Register/Register.jsx";
-import Home from "./pages/Home/Home.jsx";
-import Login from "./pages/Login/Login.jsx";
-import Profile from "./pages/Profile/Profile.jsx";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import ProblemsList from "./pages/Problems/ProblemsList.jsx";
 import ProblemDetail from "./pages/Problems/ProblemDetail.jsx";
-import Leaderboard from "./pages/Leaderboard/Leaderboard.jsx";
+import Leaderboard from "./pages/Leaderboard";
+import Playground from "./pages/Playground";
 
-import PrivateRoute from "./context/PrivateRoute"; // ✅ added
+import PrivateRoute from "./context/PrivateRoute";
 
 function App() {
   return (
@@ -22,11 +23,13 @@ function App() {
 
         <div className="flex-grow overflow-y-auto pt-20 pb-20">
           <Routes>
+            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/playground" element={<Playground />} /> {/* ✅ Playground route */}
 
-            {/* ✅ Protected Routes */}
+            {/* Protected Routes */}
             <Route path="/profile" element={
               <PrivateRoute>
                 <Profile />
