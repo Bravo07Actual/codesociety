@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import Body from "../../components/Layout/Body";
 import Editor from "../../components/CodeEditor";
 
@@ -54,7 +55,7 @@ const Playground = () => {
 
   const handleRun = async () => {
     if (!language || !codes[language]) {
-      alert("Please select a language and enter some code.");
+      toast.error("Please select a language and enter some code.");
       return;
     }
 
@@ -67,9 +68,9 @@ const Playground = () => {
         input: testInput,
       });
 
-      setOutput(res.data.output);
+      setOutput(res.data.output || res.data.error || "No output");
     } catch (err) {
-      setOutput(err.response?.data?.error || "Something went wrong");
+      setOutput(err.response?.data?.error || "Execution server not reachable");
     }
   };
 

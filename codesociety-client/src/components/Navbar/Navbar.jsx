@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { toast } from "react-toastify";
 
@@ -10,9 +10,7 @@ function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/auth/logout", {
-        withCredentials: true,
-      });
+      await axiosInstance.get("/auth/logout");
       logout(); // clear auth state
       toast.success("Logged out successfully");
       navigate("/login");

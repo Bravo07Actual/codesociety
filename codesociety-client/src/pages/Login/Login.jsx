@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
@@ -19,11 +19,7 @@ function Login() {
     setError("");
 
     try {
-      const res = await axios.post(
-        "http://localhost:8000/auth/login",
-        formData,
-        { withCredentials: true }
-      );
+      const res = await axiosInstance.post("/auth/login", formData);
 
       if (res.status === 200) {
         login(res.data.user);

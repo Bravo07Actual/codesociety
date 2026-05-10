@@ -63,10 +63,10 @@ const Home = () => {
                 Get Started
               </Link>
               <Link
-                to="/leaderboard"
+                to="/register"
                 className="border border-blue-600 text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-lg font-semibold transition-all duration-200"
               >
-                See Leaderboard
+                Create Account
               </Link>
             </>
           )}

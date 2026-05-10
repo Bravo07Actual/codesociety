@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { DBConnection } from "./database/dbConnection.js";
 import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
 import problemRoutes from "./routes/problemRoutes.js";
 import submissionRoutes from "./routes/submissionRoutes.js";
 
@@ -21,7 +20,6 @@ app.use(cors({
   credentials: true
 }));
 app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
 app.use("/problems", problemRoutes);
 app.use("/submissions", submissionRoutes);
 

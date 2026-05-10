@@ -15,7 +15,7 @@ router.get("/test", (req, res) => {
 
 // Register route
 router.post("/register", async (req, res) => {
-  const { firstname, lastname, email, password, role } = req.body;
+  const { firstname, lastname, email, password } = req.body;
 
   try {
     // Basic Validation
@@ -42,7 +42,7 @@ router.post("/register", async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
-      role: role || "user"
+      role: "user"
     });
     await user.save();
 

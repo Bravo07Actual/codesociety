@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 import { Link } from "react-router-dom";
 
 function ProblemsList() {
@@ -24,9 +24,7 @@ function ProblemsList() {
       if (difficulty) params.difficulty = difficulty;
       if (tags.length > 0) params.tags = tags.join(",");
 
-      const res = await axios.get("http://localhost:8000/problems", {
-        params,
-      });
+      const res = await axiosInstance.get("/problems", { params });
       setProblems(res.data.problems);
       setTotalPages(res.data.totalPages);
     } catch (err) {

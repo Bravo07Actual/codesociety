@@ -25,6 +25,7 @@ const Editor = ({
   onSubmit,
   onReset,
   showSubmit = true,
+  height = "400px",
 }) => {
   const [extension, setExtension] = useState([]);
 
@@ -63,7 +64,7 @@ const Editor = ({
       {/* Code Editor */}
       <CodeMirror
         value={value}
-        height="400px"
+        height={height}
         extensions={extension}
         theme="light"
         onChange={(val) => onChange(val)}

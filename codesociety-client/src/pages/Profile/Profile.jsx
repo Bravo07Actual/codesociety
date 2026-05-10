@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -8,9 +8,7 @@ function Profile() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/auth/profile", {
-          withCredentials: true,
-        });
+        const res = await axiosInstance.get("/auth/profile");
         setUser(res.data.user);
       } catch (err) {
         setError("Failed to fetch profile. Please login again.");

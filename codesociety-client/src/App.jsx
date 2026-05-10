@@ -14,6 +14,7 @@ import Leaderboard from "./pages/Leaderboard";
 import Playground from "./pages/Playground";
 
 import PrivateRoute from "./context/PrivateRoute";
+import GuestRoute from "./context/GuestRoute";
 
 function App() {
   return (
@@ -25,9 +26,9 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/playground" element={<Playground />} /> {/* ✅ Playground route */}
+            <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
+            <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+            <Route path="/playground" element={<Playground />} />
 
             {/* Protected Routes */}
             <Route path="/profile" element={

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
@@ -24,7 +24,7 @@ function Register() {
     setSuccess("");
 
     try {
-      const res = await axios.post("http://localhost:8000/auth/register", formData);
+      const res = await axiosInstance.post("/auth/register", formData);
       if (res.status === 201) {
         setSuccess("✅ Registration successful! Redirecting to login...");
         setTimeout(() => {
