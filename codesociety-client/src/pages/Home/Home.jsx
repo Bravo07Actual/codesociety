@@ -31,7 +31,7 @@ const Home = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center mb-8">
           {user ? (
             <>
               <Link
@@ -45,6 +45,13 @@ const Home = () => {
                 className="border border-blue-600 text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-lg font-semibold transition-all duration-200"
               >
                 Go to Profile
+              </Link>
+              {/* Playground CTA visible only to logged in users */}
+              <Link
+                to="/playground"
+                className="border border-yellow-500 text-yellow-600 hover:bg-yellow-50 px-6 py-3 rounded-lg font-semibold transition-all duration-200"
+              >
+                Try Playground
               </Link>
             </>
           ) : (

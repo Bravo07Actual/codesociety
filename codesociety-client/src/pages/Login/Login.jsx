@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { toast } from "react-toastify";
 
@@ -50,7 +50,7 @@ function Login() {
         </p>
       </div>
 
-      <div className="flex-1 bg-white flex items-center justify-center p-8">
+      <div className="flex-1 bg-white flex flex-col justify-center items-center p-8">
         <div className="w-full max-w-md">
           <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
 
@@ -88,6 +88,19 @@ function Login() {
               Login
             </button>
           </form>
+
+          {/* Playground CTA */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500 mb-2">
+              Want to just try writing code first?
+            </p>
+            <Link
+              to="/playground"
+              className="inline-block border border-yellow-500 text-yellow-600 hover:bg-yellow-50 px-4 py-2 rounded-lg font-semibold transition-all duration-200 text-sm"
+            >
+              Try Playground
+            </Link>
+          </div>
         </div>
       </div>
     </div>
